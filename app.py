@@ -1,97 +1,47 @@
-import tkinter as t
-from tkinter import messagebox
-from matplotlib.pyplot import*
-from matplotlib.figure import Figure
-from matplotlib import style
-import matplotlib.animation as anim
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
+#***************************************************
+# https://www.youtube.com/watch?v=PBZQVmLcb5I&list=PLMi6KgK4_mk2rK5jD-BK5RigFIP2QSq8W&index=12
+
+# MultiSelect Widget - Web App with Python Streamlit Lesson 12
+
+# Turtle Code
+#***************************************************
+#-------------------------------------------------------------------------------------
+import streamlit as st
 import numpy as np
-from math import*
-win = t.Tk()
-win.title("Graficador de Funciones")
-win.geometry("900x800")
-style.use('fivethirtyeight')
-fig = Figure()
-ax = fig.add_subplot(111)
-cvs = FigureCanvasTkAgg(fig,win)
-cvs.draw()
-cvs.get_tk_widget().pack(side = t.TOP,fill=t.BOTH, expand=1)
-tlb = NavigationToolbar2Tk(cvs,win)
-tlb.update()
-cvs.get_tk_widget().pack(side=t.TOP, fill=t.BOTH,expand=1)
+import pandas as pd
+import plotly.express as px
+from streamlit_option_menu import option_menu
+from numerize.numerize import numerize
+from query import *
+import matplotlib.pyplot as plt
+import plotly as px
+#-------------------------------------------------------------------------------------
+#-----------Definir el espacio de la malla-------------------
+x = np.linspace(-8, +8, 100)
 
-rang1 = False 
-rang2 =""
-rang3 =""
+y = (np.sin(x))*x**2
 
-fun={"sin":"np.sin","cos":"np.cos","tan":"np.tan","sqrt":"np.sqrt","exp":"np.exp","log":"np.log","i0":"np.i0"}
-#-----------------------------------
-def reemplaza(p):
-    for i in fun:
-        if i in p:
-            p=p.replace(i,fun[i]) 
-    return p   #---------No estaba alineado-----------
-#-----------------------------------
-def animate(i):
-    global rang1
-    global rang2
-    if rang1==True:
-        try:
-            min=float(rang3[0])    #;
-            max=float(rang3[1])
-            if min<max:
-                x=np.arange(min,max,0.01)
-                rang2=[min,max]
-            else:
-                rang1=False
-        except:
-            messagebox.showwarning("El rango es incorrecto...!!!")
-            rang1=False
-            entra_var.delete(0,len(entra_var.get()))
-    else:
-        if rang2!="":
-            x=np.arange(rang2[0], range2[1], 0.01)
-        else:
-            x=np.arange(0,10, 0.01)
-    try:
-        sl=eval(graf_dt)
-        ax.clear()
-        ax.plot(x,sl)
-    except:
-        ax.plot()
-    ax.axhline(0,color="gray")
-    ax.axvline(0,color="gray")
-    ani.event_source.stop()
-#----------------------------------------
-def represent():
-    global graf_dt
-    global rang3
-    global rang1
-    tx_origl=entra_func.get()
-    if entra_var.get()!="":
-        rann=entra_var.get()
-        rang3=rann.split(",")
-        rang1=True
-    graf_dt=reemplaza(tx_origl)
-    ani.event_source.start()
-#----------------------------------------
-ani=anim.FuncAnimation(fig, animate,cache_frame_data=False, interval=1000) #-----------------------
+#-------------------------------------------------------------------------------------
+#st.title("Actualización de datos...!!!")
+data = pd.DataFrame({
+   'x' : np.linspace(-8, +8, 100),
+   'y' : y   
+                    })
+#--------------------------------------------------------------
+st.subheader("Gráfico de lineas")
+fig, ax =plt.subplots()
+plt.grid()   #---------------------------------WFCZ---
+ax.plot(data['x'], data['y'])
+st.pyplot(fig)
+#---------------------------------------------
+#fig = px.line(df_selection.groupby("continente")["poblacion"].sum().reset_index(), x="continente", y="poblacion")
+#fig = px.line(data, x="x", y="y")
+#st.subheader("😊 Gráfico de Lineas")  #???????????????????????????
+#st.plotly_chart(fig)
+#---------------------------------------------
+#plt.grid(True)
+#plt.plot(x,y)
+#plt.show()
 
-show()
-#----------------------------------------
-bo1=t.Button(win,text="graficar", command=represent)
-#----------------------------------------
-entra_func=t.Entry(win, width=60)
-entra_var =t.Entry(win, width=20)
-
-#----------------------------------------
-bo1.pack(side=t.BOTTOM)
-#----------------------------------------
-entra_var.pack(side=t.RIGHT)
-entra_func.pack(side=t. BOTTOM)
-#---------------------------------------
-
-win.mainloop()
-
-
-
+#---------------------------------------------
+data
