@@ -24,7 +24,7 @@ rang1 = False
 rang2 =""
 rang3 =""
 
-fun={"sin":"np.sin","cos":"np.cos","tan":"np.tan","sqrt":"np.sqrt","exp":"np.exp","log":"np.log"}
+fun={"sin":"np.sin","cos":"np.cos","tan":"np.tan","sqrt":"np.sqrt","exp":"np.exp","log":"np.log","i0":"np.i0"}
 #-----------------------------------
 def reemplaza(p):
     for i in fun:
@@ -80,15 +80,15 @@ ani=anim.FuncAnimation(fig, animate,cache_frame_data=False, interval=1000) #----
 show()
 #----------------------------------------
 bo1=t.Button(win,text="graficar", command=represent)
-
 #----------------------------------------
-entra_func=t.Entry(win, width=60)   
-entra_var =t.Entry(win, width=20) 
+entra_func=t.Entry(win, width=60)
+entra_var =t.Entry(win, width=20)
+
 #----------------------------------------
 bo1.pack(side=t.BOTTOM)
 #----------------------------------------
-entra_var.pack(side=t.RIGHT)       
-entra_func.pack(side=t. BOTTOM)   
+entra_var.pack(side=t.RIGHT)
+entra_func.pack(side=t. BOTTOM)
 #---------------------------------------
 
 win.mainloop()
